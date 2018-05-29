@@ -49,3 +49,18 @@ print("test score:", model.score(Xtest, Ytest))
 
 
 
+# visualize the data
+def visualize(label):
+  words = ''
+  for msg in df[df['labels'] == label]['data']:
+    msg = msg.lower()
+    words += msg + ' '
+  wordcloud = WordCloud(width=600, height=400).generate(words)
+  plt.imshow(wordcloud)
+  plt.axis('off')
+  plt.show()
+
+visualize('spam')
+visualize('ham')
+
+
