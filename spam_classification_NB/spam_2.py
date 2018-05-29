@@ -64,3 +64,23 @@ visualize('spam')
 visualize('ham')
 
 
+# see what we're getting wrong
+df['predictions'] = model.predict(X)
+
+# things that should be spam
+false_positive = 0
+print("================ PRINTING all messages that are spam but classified as ham ================\n")
+sneaky_spam = df[(df['predictions'] == 0) & (df['b_labels'] == 1)]['data']
+for msg in sneaky_spam:
+  false_positive += 1
+  print("msg: {}".format(msg))
+print("Fasle Positive Count: {}\n".format(false_positive))
+
+# things that should not be spam
+false_negative = 0
+print("================ PRINTING all messages that are ham but classified as spam ================\n")
+not_actually_spam = df[(df['predictions'] == 1) & (df['b_labels'] == 0)]['data']
+for msg in not_actually_spam:
+  false_negative += 1
+  print("msg: {}".format(msg))
+print("Fasle Positive Count: {}\n".format(false_positive))
